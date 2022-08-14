@@ -1,0 +1,18 @@
+https://relieved-serpent-a74.notion.site/miniTalk-54fc160508fa42508b1df498ce011c2c
+http://www.inf.ufes.br/~zegonc/material/Sistemas_Operacionais/Sinais%20no%20UNIX.pdf
+https://www.youtube.com/watch?v=CvJYxHrSU88
+https://www.youtube.com/watch?app=desktop&v=dHXODZrBalY
+https://www.youtube.com/watch?v=g_koa00MBLg
+https://www.youtube.com/watch?v=7jkIUgLC29I&list=WL&index=28
+https://www.youtube.com/watch?v=7mKfWrNQcj0
+https://www.youtube.com/watch?v=83M5-NPDeWs
+https://www.youtube.com/watch?v=PErrlOx3LYE
+
+-> Consultar sinais:
+/usr/include/signal.h
+Manual man 7 signal
+Comando kill –l (vide adiante)
+
+-> Verificar
+man sleep
+man usleep
