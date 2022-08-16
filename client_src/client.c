@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 20:00:15 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/15 01:40:39 by lufelip2         ###   ########.fr       */
+/*   Updated: 2022/08/16 03:02:58 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,27 @@
 
 # define LOW_BIT 0x01
 
+void	send_chr(char chr, int pid)
+{
+	short int shift;
+
+	shift = 7;
+	while (shift >= 0)
+	{
+		if ((chr & (1 << shift)) >> shift)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		shift--;
+		usleep(5);
+	}
+}
+
 int main(int argc, char **argv)
 {
-	unsigned char a;
-	short int left_shift;
-
-	a = 'C';
-	left_shift = 7;
-	while (left_shift >= 0)
-	{
-		printf("%d", ((a & (1 << left_shift)) >> left_shift));
-		left_shift--;
-	}
 	(void)argc;
-	(void)argv;
-	//kill(ft_atoi(argv[1]), SIGUSR1);
+	send_chr('A', ft_atoi(argv[1]));
+	usleep(5);
+	send_chr('B', ft_atoi(argv[1]));
 	return (0);
 }
