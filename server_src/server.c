@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:38:38 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/16 03:00:31 by lufelip2         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:56:55 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_chr
 }	t_chr;
 
 t_chr chr;
+struct sigaction newact;
 
 void	signal_handler(int signal)
 {
@@ -42,18 +43,26 @@ void	signal_handler(int signal)
 		chr.byte = 1;
 		bit_counter = 0;
 	}
+	sigemptyset(&newact.sa_mask);
+	sigaction(SIGUSR1, &newact, NULL);
+	sigaction(SIGUSR2, &newact, NULL);
 }
 
 int main(void)
 {
+	newact.sa_handler = signal_handler;
+	newact.sa_flags = 0;
+	sigemptyset(&newact.sa_mask);
+	sigaddset(&newact.sa_mask, SIGUSR1);
+	sigaddset(&newact.sa_mask, SIGUSR2);
 	printf("%d\n", getpid());
-	signal(SIGUSR1, &signal_handler);
-	signal(SIGUSR2, &signal_handler);
+	sigaction(SIGUSR1, &newact, NULL);
+	sigaction(SIGUSR2, &newact, NULL);
 	while (1)
 	{
 		if (chr.byte)
 		{
-			printf("%c\n", chr.chr);
+			printf("%c", chr.chr);
 			chr.chr = 0;
 			chr.byte = 0;
 		}

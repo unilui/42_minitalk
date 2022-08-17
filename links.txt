@@ -11,8 +11,4 @@ https://www.youtube.com/watch?v=PErrlOx3LYE
 -> Consultar sinais:
 /usr/include/signal.h
 Manual man 7 signal
-Comando kill –l (vide adiante)
-
--> Verificar
-man sleep
-man usleep
+Comando kill –l
