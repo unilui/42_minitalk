@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   minitalk_client.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 20:04:09 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 02:53:32 by lufelip2         ###   ########.fr       */
+/*   Updated: 2022/08/18 02:41:59 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#ifndef MINITALK_CLIENT_H
+# define MINITALK_CLIENT_H
 
 #include <sys/types.h>
 #include <signal.h>

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   send_str.c                                         :+:      :+:    :+:   */
+/*   minitalk_server.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/18 00:28:02 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 02:42:21 by lufelip2         ###   ########.fr       */
+/*   Created: 2022/08/18 02:41:23 by lufelip2          #+#    #+#             */
+/*   Updated: 2022/08/18 02:48:32 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk_client.h"
+#ifndef MINITALK_SERVER_H
+# define MINITALK_SERVER_H
 
-void	send_str(char *str, int pid)
-{
-	short int bit;
+#include <sys/types.h>
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h> // Remover!!
 
-	g_connection.phase(1);
-	while (*str)
-	{
-		bit = 7;
-		while (bit >= 0)
-		{
-			g_connection.waiting = 1;
-			send_bit((*str & (1 << bit)) >> bit, pid);
-			bit--;
-			while (g_connection.waiting)
-				usleep(10);
-		}
-		str++;
-		usleep(200);
-	}
-}
+typedef struct s_sdata {
+	void		(*phase)(int);
+	struct sigaction action;
+	char		chr;
+	short int	byte;
+}	t_sdata;
+
+extern t_sdata g_connection;
+
+#endif

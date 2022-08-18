@@ -6,11 +6,11 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 02:18:20 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 02:56:33 by lufelip2         ###   ########.fr       */
+/*   Updated: 2022/08/18 03:10:14 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_client.h"
 
 void	phase_handler(int phase)
 {
