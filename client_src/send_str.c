@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   send_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/14 20:00:15 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 02:58:40 by lufelip2         ###   ########.fr       */
+/*   Created: 2022/08/18 00:28:02 by lufelip2          #+#    #+#             */
+/*   Updated: 2022/08/18 02:59:11 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include "libft.h"
 
-t_cdata	g_connection;
-
-int main(int argc, char **argv)
+void	send_str(char *str, int pid)
 {
-	g_connection.phase = phase_handler;
-	(void)argc;
-	send_str(argv[2], ft_atoi(argv[1]));
-	send_str("\n", ft_atoi(argv[1]));
-	return (0);
+	short int bit;
+
+	g_connection.phase(1);
+	while (*str)
+	{
+		bit = 7;
+		while (bit >= 0)
+		{
+			g_connection.waiting = 1;
+			send_bit((*str & (1 << bit)) >> bit, pid);
+			bit--;
+			while (g_connection.waiting)
+				usleep(10);
+		}
+		str++;
+		usleep(200);
+	}
 }

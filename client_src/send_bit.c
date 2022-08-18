@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   send_bit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/14 20:00:15 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 02:58:40 by lufelip2         ###   ########.fr       */
+/*   Created: 2022/08/18 02:03:47 by lufelip2          #+#    #+#             */
+/*   Updated: 2022/08/18 02:04:03 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include "libft.h"
 
-t_cdata	g_connection;
-
-int main(int argc, char **argv)
+void	send_bit(int bit, int pid)
 {
-	g_connection.phase = phase_handler;
-	(void)argc;
-	send_str(argv[2], ft_atoi(argv[1]));
-	send_str("\n", ft_atoi(argv[1]));
-	return (0);
+	if (bit)
+		kill(pid, SIGUSR1);
+	else
+		kill(pid, SIGUSR2);
 }
