@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   response_handler.c                                 :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 02:18:20 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/08/18 03:10:14 by lufelip2         ###   ########.fr       */
+/*   Updated: 2022/08/22 01:49:43 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 void	phase_handler(int phase)
 {
 	if (phase == 1)
-	{
-		g_connection.action.sa_handler = response_handler;
-		g_connection.action.sa_flags = 0;
-	}
-	sigemptyset(&g_connection.action.sa_mask);
-	sigaddset(&g_connection.action.sa_mask, SIGUSR1);
-	sigaddset(&g_connection.action.sa_mask, SIGUSR2);
-	sigaction(SIGUSR1, &g_connection.action, NULL);
-	sigaction(SIGUSR2, &g_connection.action, NULL);
+		g_cxn.action.sa_sigaction = response_handler;
+	g_cxn.action.sa_flags = SA_SIGINFO;;
+	sigemptyset(&g_cxn.action.sa_mask);
+	sigaction(SIGUSR1, &g_cxn.action, NULL);
+	sigaction(SIGUSR2, &g_cxn.action, NULL);
+	g_cxn.response.waiting = 1;
 }
 
-void	response_handler(int signal)
+void	response_handler(int signal, siginfo_t *c_info, void *context)
 {
+	if (c_info->si_pid != g_cxn.server_pid)
+		return ;
+	g_cxn.response.waiting = 0;
 	(void)signal;
-	g_connection.waiting = 0;
+	(void)context;
+}
+
+void	waiting_handler(void)
+{
+	while (g_cxn.response.waiting)
+		usleep(10);
+	g_cxn.response.waiting = 1;
 }
