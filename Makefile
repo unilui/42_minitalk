@@ -1,11 +1,9 @@
 CLIENT_SRCS		=	client_src/client.c \
-					client_src/send_str.c \
-					client_src/send_bit.c \
-					client_src/signal_handlers.c
+					client_src/handlers.c
 CLIENT_OBJS		=	${CLIENT_SRCS:%.c=$(OBJS_DIR)%.o}
 CLIENT_NAME		=	client
 SERVER_SRCS		=	server_src/server.c \
-					server_src/signal_handlers.c
+					server_src/handlers.c
 SERVER_OBJS		=	${SERVER_SRCS:%.c=$(OBJS_DIR)%.o}
 SERVER_NAME		=	server
 OBJS_DIR		=	objects/
